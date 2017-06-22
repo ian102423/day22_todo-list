@@ -1,0 +1,66 @@
+@font-face {
+  font-family: 'Finger Paint';
+  font-weight: 400;
+  src: local('Finger Paint'),
+    url('https://fonts.googleapis.com/css?family=Finger+Paint|Over+the+Rainbow');
+}
+
+html {
+  background-color: #222222;
+}
+
+body {
+  background-color: #f0f8ff;
+  font-family: 'Finger Paint';
+  width: 50%;
+  margin: 5% 0 0 25%;
+  color: #333333;
+  border-radius: 50rem;
+}
+
+h1 {
+  margin: 0;
+  text-align: center;
+  font-size: 8rem;
+  font-weight: 200;
+}
+
+ul {
+  list-style: none;
+  font-size: 1.5rem;
+}
+
+li {
+  font-size: 1.5rem;
+}
+
+.listContain {
+  display: flex;
+  justify-content: center;
+}
+
+a {
+  text-decoration: none;
+}
+
+.btn {
+  background-color: black;
+  border: 1px solid #000;
+  border-radius: 10px;
+  padding: 3px;
+  color: white;
+}
+
+.checkbox:checked + span {
+  text-decoration: line-through;
+  font-size: small;
+}
+
+.formContain {
+  display: flex;
+  justify-content: center;
+}
+
+.input {
+  width: 15rem;
+}
