@@ -14,9 +14,8 @@ body {
   font-family: 'Finger Paint';
   width: 50rem;
   height: 50rem;
-  margin: 5% 0 0 25%;
-  margin-left: auto;
-  margin-right: auto;
+  margin: auto;
+  margin-top: 5%;
   color: #333333;
   border-radius: 50rem;
 }
@@ -24,7 +23,7 @@ body {
 h1 {
   margin: 0;
   text-align: center;
-  font-size: 8rem;
+  font-size: 7rem;
   font-weight: 200;
 }
 
