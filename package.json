@@ -1,18 +1,27 @@
 {
   "name": "toDoList",
   "version": "1.0.0",
-  "description": "",
+  "description": "The Iron Yard Daily Project: Build a todo list",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ian102423/day22_todo-list.git"
+  },
+  "author": "Rick Murdock",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ian102423/day22_todo-list/issues"
+  },
+  "homepage": "https://github.com/ian102423/day22_todo-list#readme",
   "dependencies": {
     "body-parser": "^1.17.2",
     "express": "^4.15.3",
-    "express-validator": "^3.2.0",
-    "mustache-express": "^1.2.4"
+    "morgan": "^1.8.2",
+    "mustache-express": "^1.2.5",
+    "pg": "^6.4.0",
+    "sequelize": "^4.2.0"
   }
 }

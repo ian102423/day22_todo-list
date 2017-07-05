@@ -1,47 +1,84 @@
 const express = require("express");
-const mustacheExpress = require("mustache-express");
-const app = express();
 const bodyParser = require("body-parser");
-const expressValidator = require("express-validator");
+const mustacheExpress = require("mustache-express");
+const morgan = require("morgan");
+const models = require("./models");
 const port = process.env.PORT || 8080;
+var app = express();
 
-const todos = [
-  "Shopping?",
-  "Apple",
-  "Grapes?",
-  "Eat Apple?",
-  "Eat Grapes?",
-  "!?"
-];
-
-const completed = [];
-
+// MUSTACHE ENGINE
 app.engine("mustache", mustacheExpress());
 app.set("views", "./public");
 app.set("view engine", "mustache");
 
 // MIDDLEWARE
+app.use("/", express.static(__dirname + "/public"));
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(expressValidator());
+app.use(morgan("dev"));
 
 // ROUTES
-app.use("/", express.static("./public"));
-
 app.get("/", function(req, res) {
-  res.render("index", { todos: todos });
+  models.todo
+    .findAll({ order: [["createdAt", "DESC"]] })
+    .then(function(foundTodo) {
+      res.render("index", { listBox: foundTodo });
+    })
+    .catch(function(err) {
+      res.status(500).send(err);
+    });
 });
 
 app.post("/", function(req, res) {
-  todos.push(req.body.searchInput);
-  res.redirect("/");
+  var todoData = req.body.item;
+  var newItem = models.todo.build({ item: todoData });
+  newItem
+    .save()
+    .then(function(savedTodo) {
+      res.redirect("/");
+    })
+    .catch(function(err) {
+      res.status(500).send(err);
+    });
 });
 
-function removeTodo(e) {
-  alert("ALERT");
-  console.log(event.target);
-}
+app.post("/completed", function(req, res) {
+  var todoComplete = req.body.incomplete;
+  models.todo
+    .update({ complete: true }, { where: { id: todoComplete } })
+    .then(function() {
+      res.redirect("/");
+    })
+    .catch(function(err) {
+      res.status(500).send(err);
+    });
+});
+
+app.post("/delete", function(req, res) {
+  var delId = req.body.completed;
+  models.todo
+    .destroy({ where: { id: delId } })
+    .then(function() {
+      res.redirect("/");
+    })
+    .catch(function(err) {
+      res.status(500).send(err);
+    });
+});
+
+app.post("/deletecompleted", function(req, res) {
+  models.todo
+    .destroy({ where: { complete: true } })
+    .then(function() {
+      res.redirect("/");
+    })
+    .catch(function(err) {
+      res.status(500).send(err);
+    });
+});
 
 // LISTEN
+
 app.listen(port, function() {
   console.log("You are on the PORT: ", port);
 });
